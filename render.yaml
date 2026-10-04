@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: aba-craft-assistant
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: PRODUCTS_API_URL
+        value: https://aba-craft.vercel.app/api/products
+      - key: STORE_NAME
+        value: Aba Craft
+      - key: CATALOG_REFRESH_SECONDS
+        value: "300"
+      - key: INTENT_CONFIDENCE_THRESHOLD
+        value: "0.35"
+      - key: PRODUCT_MATCH_THRESHOLD
+        value: "75"
+      - key: SEMANTIC_MATCH_THRESHOLD
+        value: "0.15"
+      - key: MEMORY_TTL_SECONDS
+        value: "1800"
+      - key: MAX_PRODUCTS_IN_LIST
+        value: "5"
